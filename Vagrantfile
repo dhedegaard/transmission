@@ -39,4 +39,10 @@ Vagrant.configure(2) do |config|
       /etc/transmission-daemon/settings.json
     sudo service transmission-daemon start
   SHELL
+
+  # Restart after mount, to make sure the mountpoint is correct before the
+  # daemon starts.
+  config.vm.provision "shell", run: "always", inline: <<-SHELL
+    sudo service transmission-daemon restart
+  SHELL
 end
